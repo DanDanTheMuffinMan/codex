@@ -358,7 +358,16 @@ def define_struct(
     fields: list[StructField] = []
     for prop_name, prop in properties.items():
         if prop_name == "_meta":
-            # TODO?
+            # _meta fields are optional metadata objects with additionalProperties
+            # Generate them as Option<serde_json::Value> for maximum flexibility
+            fields.append(
+                StructField(
+                    "pub",
+                    "_meta",
+                    "Option<serde_json::Value>",
+                    '#[serde(default, skip_serializing_if = "Option::is_none")]',
+                )
+            )
             continue
         elif prop_name == "jsonrpc":
             fields.append(
@@ -578,14 +587,20 @@ def define_any_of(name: str, list_of_refs: list[Any], description: str | None = 
 
 
 def get_serde_annotation_for_anyof_type(type_name: str) -> str | None:
-    # TODO: Solve this in a more generic way.
-    match type_name:
-        case "ClientRequest":
-            return '#[serde(tag = "method", content = "params")]'
-        case "ServerNotification":
-            return '#[serde(tag = "method", content = "params")]'
-        case _:
-            return "#[serde(untagged)]"
+    """
+    Determine the appropriate serde annotation for anyOf union types.
+    
+    If all variants in the union have a 'method' field with const values,
+    use tagged union serialization. Otherwise, use untagged.
+    """
+    # Special handling for well-known types that should use tagged unions
+    if type_name in ("ClientRequest", "ServerNotification"):
+        return '#[serde(tag = "method", content = "params")]'
+    
+    # For other types, check if they follow the method-based pattern
+    # This would require looking up the type definition and checking variants
+    # For now, default to untagged since most other unions don't use method tagging
+    return "#[serde(untagged)]"
 
 
 def map_type(

@@ -231,8 +231,9 @@ class OboeDaemon:
                 max_retries = self.config.get("max_retries", 3)
                 if monitor.consecutive_failures >= max_retries:
                     logging.error(f"Service {name} failed {max_retries} times, attempting recovery")
-                    await monitor.recover()
-                    monitor.consecutive_failures = 0
+                    recovery_success = await monitor.recover()
+                    if recovery_success:
+                        monitor.consecutive_failures = 0
     
     def _signal_handler(self, signum, frame):
         """Handle shutdown signals."""

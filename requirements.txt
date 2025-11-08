@@ -1,0 +1,4 @@
+pynput>=1.8.1
+pytesseract
+pillow
+# Add other dependencies your project needs

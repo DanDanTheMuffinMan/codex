@@ -30,7 +30,7 @@ else
 fi
 
 if command -v python3 >/dev/null 2>&1; then
-  python_actual="$(python3 --version | sed 's/^Python //')"
+  python_actual="$(python3 --version | cut -d' ' -f2)"
 else
   python_actual="missing"
 fi

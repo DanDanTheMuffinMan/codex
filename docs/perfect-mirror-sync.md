@@ -118,7 +118,7 @@ echo "=== Installed skills ==="
 find "${CODEX_HOME:-$HOME/.codex}/skills" -maxdepth 2 -name "SKILL.md" 2>/dev/null | sort || true
 echo
 echo "=== Active AGENTS files in repo path ==="
-find . -name "AGENTS.md" -o -name "AGENTS.override.md" | sort
+find . -name "AGENTS.md" -o -name "AGENTS.override.md" 2>/dev/null | sort || true
 '
 ```
 

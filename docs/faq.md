@@ -16,6 +16,10 @@ You can also use older models by using API-based auth and launching codex with t
 
 Approvals are the mechanism Codex uses to ask before running a tool call with elevated permissions - typically to leave the sandbox or re-run a failed command without isolation. Sandbox mode provides the baseline isolation (`Read Only`, `Workspace Write`, or `Danger Full Access`; see [Sandbox & approvals](./sandbox.md)).
 
+### How do I use Codex with my ChatGPT account?
+
+Install Codex, run `codex`, and choose **Sign in with ChatGPT**. Complete the browser login and the CLI will store your token in `~/.codex/auth.json` for future sessions. You don't need an API key unless you prefer the [API-based alternative](./authentication.md#usage-based-billing-alternative-use-an-openai-api-key).
+
 ### Can I automate tasks without the TUI?
 
 Yes. [`codex exec`](./exec.md) runs Codex in non-interactive mode with streaming logs, JSONL output, and structured schema support. The command respects the same sandbox and approval settings you configure in the [Config guide](./config.md).

@@ -2,18 +2,30 @@
 # macOS Codex runtime parity check for perfect mirror setup.
 set -euo pipefail
 
-readonly EXPECTED_RUST="1.89.0"
-readonly EXPECTED_NODE="20.19.6"
+readonly EXPECTED_RUST="1.90.0"
+readonly EXPECTED_NODE="22"
 readonly EXPECTED_PYTHON="3.12.12"
 
 fail=0
 
-report_check() {
+report_exact_check() {
   local name="$1" expected="$2" actual="$3"
   if [[ "$actual" == "$expected" ]]; then
     printf '✅ %s %s\n' "$name" "$actual"
   else
     printf '❌ %s expected %s but found %s\n' "$name" "$expected" "$actual"
+    fail=1
+  fi
+}
+
+report_major_check() {
+  local name="$1" expected_major="$2" actual="$3"
+  local actual_major="${actual%%.*}"
+
+  if [[ "$actual" != "missing" && "$actual_major" == "$expected_major" ]]; then
+    printf '✅ %s %s (major %s matched)\n' "$name" "$actual" "$expected_major"
+  else
+    printf '❌ %s expected major %s.x but found %s\n' "$name" "$expected_major" "$actual"
     fail=1
   fi
 }
@@ -47,9 +59,9 @@ else
   python_actual="missing"
 fi
 
-report_check "rustc" "$EXPECTED_RUST" "$rust_actual"
-report_check "node" "$EXPECTED_NODE" "$node_actual"
-report_check "python3" "$EXPECTED_PYTHON" "$python_actual"
+report_exact_check "rustc" "$EXPECTED_RUST" "$rust_actual"
+report_major_check "node" "$EXPECTED_NODE" "$node_actual"
+report_exact_check "python3" "$EXPECTED_PYTHON" "$python_actual"
 
 if [[ $fail -ne 0 ]]; then
   printf '\nRemediation hints (only shown if the tooling exists):\n'

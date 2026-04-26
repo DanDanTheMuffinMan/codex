@@ -262,7 +262,6 @@ def make_contact_sheets(run_root: Path, candidates: list[Candidate], sheet_size:
     margin = 18
     gap = 14
     cols = 4
-    rows = max(1, (sheet_size + cols - 1) // cols)
     font = load_font(16)
     small_font = load_font(12)
 

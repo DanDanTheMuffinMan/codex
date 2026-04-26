@@ -1,0 +1,66 @@
+{
+  "workspace_label": "unova-drive-notion-sweep",
+  "notes": "Replace placeholder seeds before a real run.",
+  "accounts": [
+    {
+      "label": "primary",
+      "enabled": true,
+      "allow_account_mismatch": false,
+      "expected_google_drive_email": "replace-with-your-drive-email@example.com",
+      "expected_notion_email": "replace-with-your-notion-email@example.com",
+      "expected_notion_user": "Replace With Your Name",
+      "cache_tags": [
+        "unova",
+        "drive-notion-sweep",
+        "history"
+      ],
+      "drive": {
+        "max_folder_items": 25,
+        "folder_urls": [
+          "https://drive.google.com/drive/folders/REPLACE_ME"
+        ],
+        "file_urls": [
+          "https://docs.google.com/document/d/REPLACE_ME/edit"
+        ]
+      },
+      "notion": {
+        "max_results_per_query": 5,
+        "seed_queries": [
+          "UNOVA",
+          "UNOVA memory spine",
+          "Google Drive archive"
+        ],
+        "page_urls": [
+          "REPLACE_WITH_NOTION_PAGE_ID_OR_URL"
+        ],
+        "teamspace_ids": []
+      }
+    },
+    {
+      "label": "secondary",
+      "enabled": false,
+      "allow_account_mismatch": false,
+      "expected_google_drive_email": "second-account@example.com",
+      "expected_notion_email": "second-account@example.com",
+      "expected_notion_user": "Second Account",
+      "cache_tags": [
+        "unova",
+        "drive-notion-sweep",
+        "secondary"
+      ],
+      "drive": {
+        "max_folder_items": 10,
+        "folder_urls": [],
+        "file_urls": []
+      },
+      "notion": {
+        "max_results_per_query": 3,
+        "seed_queries": [
+          "UNOVA"
+        ],
+        "page_urls": [],
+        "teamspace_ids": []
+      }
+    }
+  ]
+}

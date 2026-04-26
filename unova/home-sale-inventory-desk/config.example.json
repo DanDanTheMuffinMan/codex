@@ -1,0 +1,52 @@
+{
+  "workspace_label": "home-sale-inventory-desk",
+  "notes": "Replace paths and seller context before a real run.",
+  "seller_context": {
+    "market_city": "Kansas City, MO",
+    "sale_goal": "Balance fast cleanout with strong prices for valuable items.",
+    "pickup_policy": "Local pickup only until shipping is explicitly chosen.",
+    "address_policy": "Do not include exact pickup address in drafts."
+  },
+  "batches": [
+    {
+      "label": "garage-001",
+      "enabled": true,
+      "room": "Garage",
+      "source_path": "/absolute/path/to/photos/Garage",
+      "staged_run_path": "",
+      "notes": "Prioritize tools, equipment, shelving, and quick local lots.",
+      "max_photos": 40,
+      "market_city": "Kansas City, MO"
+    },
+    {
+      "label": "living-room-001",
+      "enabled": false,
+      "room": "Living Room",
+      "source_path": "/absolute/path/to/photos/Living Room",
+      "staged_run_path": "",
+      "notes": "Prioritize furniture, lamps, rugs, art, and decor bundles.",
+      "max_photos": 30,
+      "market_city": "Kansas City, MO"
+    }
+  ],
+  "venues": [
+    "Facebook Marketplace",
+    "OfferUp",
+    "Craigslist",
+    "eBay",
+    "Mercari",
+    "Chairish",
+    "Reverb",
+    "Habitat ReStore",
+    "Donation",
+    "Free pickup"
+  ],
+  "artifact_rules": {
+    "inventory_csv": "inventory.csv",
+    "summary_md": "summary.md",
+    "research_queue_csv": "research-queue.csv",
+    "listing_drafts_md": "listing-drafts.md",
+    "status_json": "status.json"
+  }
+}
+

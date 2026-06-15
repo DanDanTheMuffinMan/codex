@@ -9,6 +9,7 @@ In the codex-rs folder where the rust code lives:
   - Similarly, when you spawn a process using Seatbelt (`/usr/bin/sandbox-exec`), `CODEX_SANDBOX=seatbelt` will be set on the child process. Integration tests that want to run Seatbelt themselves cannot be run under Seatbelt, so checks for `CODEX_SANDBOX=seatbelt` are also often used to early exit out of tests, as appropriate.
 
 Before finalizing a change to `codex-rs`, run `just fmt` (in `codex-rs` directory) to format the code and `just fix` (in `codex-rs` directory) to fix any linter issues in the code. If `just fix` reports errors it cannot automatically resolve, do not proceed with finalizing the change. Instead, manually fix the reported issues before re-running `just fix` until it exits cleanly. Additionally, run the tests:
+
 1. Run `cargo test -p <changed-crate>` for every crate you modified. For example, if changes were made in `codex-rs/tui`, run `cargo test -p codex-tui`. If the specific-project tests fail, stop, diagnose the failure, fix the code, and re-run the tests before proceeding. Do not run `cargo test --all-features` until the specific-project tests pass cleanly.
 2. If any of the modified crates are `codex-common`, `codex-core`, or `codex-protocol`, also run `cargo test --all-features` from the `codex-rs` directory.
 
@@ -41,4 +42,5 @@ If snapshot tests exist in crates other than `codex-tui`, apply the same workflo
   - `cargo insta accept -p codex-tui`
 
 If you don’t have the tool:
+
 - `cargo install cargo-insta`

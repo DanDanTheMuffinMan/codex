@@ -1,6 +1,7 @@
 packages:
   - docs
   - sdk/typescript
+  - mcp-bridge
 
 ignoredBuiltDependencies:
   - esbuild

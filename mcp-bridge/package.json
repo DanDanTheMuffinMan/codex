@@ -1,0 +1,28 @@
+{
+  "name": "@openai/codex-mcp-bridge",
+  "version": "0.1.0",
+  "description": "MCP bridge server that enables Claude Code and OpenAI Codex agents to collaborate",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "codex-mcp-bridge": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
+    "@modelcontextprotocol/sdk": "^1.12.1",
+    "@openai/codex-sdk": "file:../sdk/typescript"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.9.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

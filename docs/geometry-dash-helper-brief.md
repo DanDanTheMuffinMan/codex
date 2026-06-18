@@ -96,12 +96,14 @@ That creates value immediately, supports his learning style, and gives him a cre
 Desktop app with three surfaces:
 
 1. Overlay
+
    - status
    - countdown
    - beat cues
    - simple coaching text
 
 2. Coach panel
+
    - start/end segment controls
    - replay analysis
    - voice input toggle

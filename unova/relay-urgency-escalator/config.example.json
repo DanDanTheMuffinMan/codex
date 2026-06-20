@@ -1,0 +1,95 @@
+{
+  "workspace_label": "unova-relay-urgency-escalator",
+  "notes": "Safe default review of recent UNOVA relay evidence for unfinished time-sensitive deliverables.",
+  "review": {
+    "label": "current-relay",
+    "window_minutes": 20,
+    "sources": {
+      "local_relay_files": {
+        "enabled": true,
+        "paths": {
+          "messages_state": "~/.unova/messages/state.json",
+          "messages_inbox": "~/.unova/messages/inbox.jsonl",
+          "desktop_inbox": "~/.unova/desktop/inbox.jsonl",
+          "vision_inbox": "~/.unova/vision/inbox.jsonl",
+          "voice_inbox": "~/.unova/voice/inbox.jsonl",
+          "memory_bridge_events": "~/.unova/memory_bridge/events.jsonl",
+          "perception_bus": "~/.unova/perception/bus.jsonl"
+        },
+        "max_entries_per_file": 40
+      },
+      "chronicle": {
+        "enabled": true,
+        "require_running": false,
+        "freshness_seconds": 180,
+        "max_recent_resource_files": 4,
+        "allow_raw_ocr_quotes": false
+      },
+      "runtime_status": {
+        "enabled": true,
+        "live_unova_repo": "/Users/adamterra/UNOVA",
+        "sense_window_seconds": 600,
+        "allow_status_commands": true
+      }
+    },
+    "urgency_keywords": [
+      "today",
+      "tomorrow",
+      "this afternoon",
+      "tonight",
+      "asap",
+      "urgent",
+      "deadline",
+      "due",
+      "sign",
+      "send",
+      "contract",
+      "agreement",
+      "invoice",
+      "payment",
+      "portal",
+      "meeting",
+      "call",
+      "link",
+      "version",
+      "follow up",
+      "waiting"
+    ],
+    "fallback_rules": {
+      "allowed_artifact_types": [
+        "message_draft",
+        "email_draft",
+        "status_note",
+        "handoff_checklist",
+        "document_outline"
+      ],
+      "default_artifact_type": "status_note",
+      "max_fallback_words": 180,
+      "max_summary_bullets": 5,
+      "approval_labels": [
+        "needs_approval",
+        "ready_to_send"
+      ],
+      "ready_to_send_requires": [
+        "single_recipient_or_clear_audience",
+        "no legal_or_financial_commitment",
+        "no sensitive_personal_detail",
+        "no uncertain factual claim",
+        "human_can_review_before_send"
+      ]
+    },
+    "safety": {
+      "never_auto_send": true,
+      "redact_secrets": true,
+      "redact_contact_details": true,
+      "blocked_action_categories": [
+        "send_without_user_approval",
+        "legal_commitment",
+        "financial_commitment",
+        "relationship_escalation",
+        "medical_or_identity_detail",
+        "credential_or_secret_disclosure"
+      ]
+    }
+  }
+}

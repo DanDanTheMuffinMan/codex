@@ -1,0 +1,66 @@
+{
+  "workspace_label": "unova-chronicle-photo-memory",
+  "notes": "Safe default review of recent Chronicle context plus the current Photos window.",
+  "review": {
+    "label": "current-session",
+    "enabled": true,
+    "focus": [
+      "recent-chronicle-context",
+      "safe-image-themes",
+      "consent-aware-people-notes"
+    ],
+    "sources": {
+      "chronicle": {
+        "require_live_recorder": true,
+        "max_recent_resource_files": 2,
+        "max_ocr_hits": 8,
+        "search_terms": [
+          "Photos",
+          "People",
+          "Library",
+          "album"
+        ]
+      },
+      "photos_app": {
+        "app_name": "Photos",
+        "allowed_sidebar_targets": [
+          "Library"
+        ],
+        "inspect_only_current_window": true,
+        "max_visible_assets": 9,
+        "max_selected_assets": 2
+      }
+    },
+    "consent": {
+      "basis": "Explicit user request in the current Codex session.",
+      "review_scope": [
+        "chronicle-recent-context",
+        "photos-current-window"
+      ],
+      "people_label_mode": "alias_only",
+      "allow_user_supplied_names": false,
+      "allow_face_guessing": false,
+      "allow_raw_ocr_quotes": false,
+      "allow_sensitive_image_details": false,
+      "skip_if_sensitive_content_present": true,
+      "allow_global_memory_merge": false,
+      "blocked_categories": [
+        "nudity_or_intimate_imagery",
+        "minors",
+        "medical",
+        "identity_documents",
+        "financial",
+        "precise_location",
+        "contact_info"
+      ]
+    },
+    "known_people": [],
+    "artifact_rules": {
+      "max_people_notes": 4,
+      "max_image_notes": 8,
+      "max_next_actions": 5,
+      "require_next_actions": true,
+      "default_safe_to_merge": false
+    }
+  }
+}

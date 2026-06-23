@@ -71,6 +71,36 @@ Codex CLI supports a rich set of configuration options, with preferences stored 
 
 ---
 
+## Repository guide
+
+### 1) End-to-end execution flow
+
+1. You run `codex` from the npm package in [`codex-cli/`](./codex-cli), which launches the bundled Rust binary.
+2. The binary entrypoint in [`codex-rs/cli`](./codex-rs/cli) routes to the right mode and command.
+3. Interactive terminal UX is implemented in [`codex-rs/tui`](./codex-rs/tui), while non-interactive automation runs through [`codex-rs/exec`](./codex-rs/exec).
+4. Shared orchestration and business logic lives in [`codex-rs/core`](./codex-rs/core), with shared protocol types in [`codex-rs/protocol`](./codex-rs/protocol).
+5. If you integrate programmatically, the TypeScript SDK in [`sdk/typescript`](./sdk/typescript) wraps the `codex` binary and streams structured events.
+
+### 2) Architecture layers
+
+- **Interface layer**: [`codex-rs/cli`](./codex-rs/cli), [`codex-rs/tui`](./codex-rs/tui), [`codex-rs/exec`](./codex-rs/exec)
+- **Core application layer**: [`codex-rs/core`](./codex-rs/core)
+- **Protocol/contracts layer**: [`codex-rs/protocol`](./codex-rs/protocol), [`codex-rs/app-server-protocol`](./codex-rs/app-server-protocol), [`codex-rs/mcp-types`](./codex-rs/mcp-types)
+- **Integration layer**: crates like [`codex-rs/mcp-server`](./codex-rs/mcp-server), [`codex-rs/rmcp-client`](./codex-rs/rmcp-client), and [`codex-rs/backend-client`](./codex-rs/backend-client)
+- **Platform security/sandbox layer**: [`codex-rs/linux-sandbox`](./codex-rs/linux-sandbox), [`codex-rs/windows-sandbox-rs`](./codex-rs/windows-sandbox-rs), and [sandbox docs](./docs/sandbox.md)
+- **Utility layer**: focused crates under [`codex-rs/utils`](./codex-rs/utils)
+
+### 3) Where to make changes
+
+- **Add a CLI flag or command wiring**: start in [`codex-rs/cli/src`](./codex-rs/cli/src)
+- **Change terminal UI behavior/rendering**: start in [`codex-rs/tui/src`](./codex-rs/tui/src)
+- **Modify orchestration, tools, or conversation logic**: start in [`codex-rs/core/src`](./codex-rs/core/src)
+- **Adjust shared schemas/types for requests/events**: start in [`codex-rs/protocol/src`](./codex-rs/protocol/src)
+- **Update JS/TS SDK behavior**: start in [`sdk/typescript/src`](./sdk/typescript/src)
+- **Adjust packaging/distribution of the `codex` npm command**: start in [`codex-cli`](./codex-cli)
+
+---
+
 ### Docs & FAQ
 
 - [**Getting started**](./docs/getting-started.md)

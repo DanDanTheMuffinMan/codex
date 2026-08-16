@@ -52,6 +52,19 @@ check_script_syntax() {
   log "PASS bash -n: $(relative_path "$path")"
 }
 
+resolve_link_target() {
+  local link_path="$1"
+  local target
+  target="$(readlink "$link_path")"
+
+  if [[ "$target" == /* ]]; then
+    printf '%s' "$target"
+    return
+  fi
+
+  printf '%s' "$(cd "$(dirname "$link_path")" && cd "$(dirname "$target")" && pwd)/$(basename "$target")"
+}
+
 validate_prompt_install() {
   local script_name="$1"
   local prompt_name="$2"
@@ -68,7 +81,7 @@ validate_prompt_install() {
   fi
 
   local target
-  target="$(readlink "$prompt_path")"
+  target="$(resolve_link_target "$prompt_path")"
   if [[ "$target" != "$source_abs" ]]; then
     printf 'Unexpected symlink target for %s: %s (expected %s)\n' "$prompt_path" "$target" "$source_abs" >&2
     exit 1

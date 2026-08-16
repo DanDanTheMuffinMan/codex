@@ -27,7 +27,7 @@
       },
       "runtime_status": {
         "enabled": true,
-        "live_unova_repo": "/Users/adamterra/UNOVA",
+        "live_unova_repo": "/absolute/path/to/UNOVA",
         "sense_window_seconds": 600,
         "allow_status_commands": true
       }

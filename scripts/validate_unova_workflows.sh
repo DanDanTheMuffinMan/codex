@@ -43,7 +43,10 @@ check_file() {
 check_json() {
   local path="$1"
   check_file "$path"
-  jq -e . "$path" >/dev/null
+  jq -e . "$path" >/dev/null || {
+    printf 'FAIL json parse: %s\n' "$path" >&2
+    exit 1
+  }
   log "PASS json: $(relative_path "$path")"
 }
 

@@ -159,14 +159,16 @@ validate_prompt_install \
   "unova-relay-urgency-escalator.md" \
   "unova/relay-urgency-escalator/interactive-prompt.md"
 
-if ! "$REPO_ROOT/scripts/run_unova_drive_notion_sweep.sh" --help >/dev/null; then
-  printf 'FAIL help check: scripts/run_unova_drive_notion_sweep.sh --help\n' >&2
+RUN_SWEEP_HELP="$("$REPO_ROOT/scripts/run_unova_drive_notion_sweep.sh" --help 2>&1 || true)"
+if [[ "$RUN_SWEEP_HELP" != *"Usage:"* ]]; then
+  printf 'FAIL help check: scripts/run_unova_drive_notion_sweep.sh --help did not print usage\n' >&2
   exit 1
 fi
 log "PASS help: scripts/run_unova_drive_notion_sweep.sh --help"
 
-if ! "$REPO_ROOT/scripts/stage_home_sale_photo_batch.sh" --help >/dev/null; then
-  printf 'FAIL help check: scripts/stage_home_sale_photo_batch.sh --help\n' >&2
+STAGE_HELP="$("$REPO_ROOT/scripts/stage_home_sale_photo_batch.sh" --help 2>&1 || true)"
+if [[ "$STAGE_HELP" != *"Usage:"* ]]; then
+  printf 'FAIL help check: scripts/stage_home_sale_photo_batch.sh --help did not print usage\n' >&2
   exit 1
 fi
 log "PASS help: scripts/stage_home_sale_photo_batch.sh --help"

@@ -42,6 +42,7 @@ check_file() {
 
 check_json() {
   local path="$1"
+  check_file "$path"
   jq -e . "$path" >/dev/null
   log "PASS json: $(relative_path "$path")"
 }
@@ -158,10 +159,16 @@ validate_prompt_install \
   "unova-relay-urgency-escalator.md" \
   "unova/relay-urgency-escalator/interactive-prompt.md"
 
-"$REPO_ROOT/scripts/run_unova_drive_notion_sweep.sh" --help >/dev/null
+if ! "$REPO_ROOT/scripts/run_unova_drive_notion_sweep.sh" --help >/dev/null; then
+  printf 'FAIL help check: scripts/run_unova_drive_notion_sweep.sh --help\n' >&2
+  exit 1
+fi
 log "PASS help: scripts/run_unova_drive_notion_sweep.sh --help"
 
-"$REPO_ROOT/scripts/stage_home_sale_photo_batch.sh" --help >/dev/null
+if ! "$REPO_ROOT/scripts/stage_home_sale_photo_batch.sh" --help >/dev/null; then
+  printf 'FAIL help check: scripts/stage_home_sale_photo_batch.sh --help\n' >&2
+  exit 1
+fi
 log "PASS help: scripts/stage_home_sale_photo_batch.sh --help"
 
 if command -v codex >/dev/null 2>&1; then

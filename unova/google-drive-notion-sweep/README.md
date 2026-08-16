@@ -127,4 +127,4 @@ The prompt is written to stay grounded:
 - The runner requires `codex` and `jq`.
 - The sweep prompt intentionally uses the connectors you already have: Google Drive, Notion, and `unova_spine`.
 - `runs/` is ignored via a local `.gitignore`, so repeated sweeps do not dirty the repo with artifacts you did not mean to commit.
-- On this machine on April 18, 2026, I observed `codex exec` failing before the sweep starts because `/Users/adamterra/.codex/config.toml` contains URL-based MCP entries such as `mcp_servers.figma` and `mcp_servers.linear`, and the current `codex exec` parser rejects them with `missing field command`. The batch runner now captures that failure in `exec.stderr.log`, but the interactive prompt path is the reliable route until the CLI parser catches up.
+- If `codex exec` fails before the sweep starts (for example with config parse errors such as `missing field command`), inspect `exec.stderr.log` in the account run folder and use the interactive prompt path while troubleshooting the local Codex config.

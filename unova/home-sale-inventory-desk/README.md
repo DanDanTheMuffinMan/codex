@@ -43,16 +43,16 @@ Install the reusable Codex prompt:
 Export the recent Photos.app candidates into a local review run:
 
 ```bash
-/Users/adamterra/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 \
+python3 \
   scripts/export_recent_home_sale_photos.py \
   --since "2026-04-16 00:00:00" \
   --label recent-10-day-resale
 ```
 
-For the April 2026 house-sale run, build the current master workbook:
+Build the current master workbook:
 
 ```bash
-/Users/adamterra/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 \
+python3 \
   scripts/build_home_sale_inventory_workbook.py \
   --run-root unova/home-sale-inventory-desk/runs/latest
 ```

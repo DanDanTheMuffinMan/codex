@@ -15,6 +15,15 @@ log() {
   printf '%s\n' "$1"
 }
 
+relative_path() {
+  local path="$1"
+  if [[ "$path" == "$REPO_ROOT/"* ]]; then
+    printf '%s' "${path#"$REPO_ROOT"/}"
+  else
+    printf '%s' "$path"
+  fi
+}
+
 require_cmd() {
   local cmd="$1"
   if ! command -v "$cmd" >/dev/null 2>&1; then
@@ -34,13 +43,13 @@ check_file() {
 check_json() {
   local path="$1"
   jq -e . "$path" >/dev/null
-  log "PASS json: ${path#$REPO_ROOT/}"
+  log "PASS json: $(relative_path "$path")"
 }
 
 check_script_syntax() {
   local path="$1"
   bash -n "$path"
-  log "PASS bash -n: ${path#$REPO_ROOT/}"
+  log "PASS bash -n: $(relative_path "$path")"
 }
 
 validate_prompt_install() {
@@ -151,7 +160,10 @@ if command -v codex >/dev/null 2>&1; then
 
   MANIFEST_PATH="$DRY_RUN_OUTPUT/latest/manifest.json"
   check_file "$MANIFEST_PATH"
-  jq -e '.counts.total >= 1 and .counts.dry_run == .counts.total and .counts.failed == 0' "$MANIFEST_PATH" >/dev/null
+  jq -e '.counts.total >= 1 and .counts.dry_run == .counts.total and .counts.failed == 0' "$MANIFEST_PATH" >/dev/null || {
+    printf 'FAIL dry-run manifest check: unexpected counts in %s\n' "$MANIFEST_PATH" >&2
+    exit 1
+  }
   log "PASS dry-run: scripts/run_unova_drive_notion_sweep.sh"
 else
   log "SKIP dry-run: codex command not available"

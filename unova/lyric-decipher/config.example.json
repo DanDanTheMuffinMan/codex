@@ -1,0 +1,10 @@
+{
+  "model": "small",
+  "language": null,
+  "extra_passes": 2,
+  "enhance": true,
+  "demucs": false,
+  "prompt": null,
+  "device": "auto",
+  "compute_type": "auto"
+}

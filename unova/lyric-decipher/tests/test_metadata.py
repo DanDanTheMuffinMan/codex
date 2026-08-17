@@ -52,3 +52,12 @@ def test_lookup_handles_network_failure(monkeypatch):
 def test_lookup_ignores_empty_hits(monkeypatch):
     monkeypatch.setattr(metadata, "_get_json", lambda url, timeout=15: [])
     assert lookup_published_lyrics(TrackInfo(title="Anything")) is None
+
+
+def test_lookup_rejects_hits_with_empty_or_unrelated_names(monkeypatch):
+    hits = [
+        {"id": 1, "trackName": "", "plainLyrics": "junk"},
+        {"id": 2, "trackName": "Completely Unrelated", "plainLyrics": "junk"},
+    ]
+    monkeypatch.setattr(metadata, "_get_json", lambda url, timeout=15: hits)
+    assert lookup_published_lyrics(TrackInfo(title="Chateau (elan)")) is None

@@ -74,6 +74,16 @@ def test_write_reference_only(tmp_path):
     assert "reference.txt" in written and "report.json" in written
 
 
+def test_make_run_dir_survives_same_second_collision(tmp_path):
+    import datetime as dt
+
+    frozen = dt.datetime(2026, 8, 17, 12, 0, 0)
+    first = make_run_dir(tmp_path, "slug", now=frozen)
+    second = make_run_dir(tmp_path, "slug", now=frozen)
+    assert first != second
+    assert second.name.endswith("-slug-2")
+
+
 def test_run_dir_slug_sanitizes_names(tmp_path):
     track = TrackInfo(title="Chateau (elan)!!", artist="him's")
     assert track.slug() == "him-s-chateau-elan"

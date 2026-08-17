@@ -25,6 +25,10 @@ def make_run_dir(pack_root: Path, slug: str, now: dt.datetime | None = None) -> 
     now = now or dt.datetime.now()
     stamp = now.strftime("%Y%m%d-%H%M%S")
     run_dir = pack_root / "runs" / f"{stamp}-{slug}"
+    suffix = 2
+    while run_dir.exists():
+        run_dir = pack_root / "runs" / f"{stamp}-{slug}-{suffix}"
+        suffix += 1
     run_dir.mkdir(parents=True, exist_ok=False)
     latest = pack_root / "runs" / "latest"
     try:

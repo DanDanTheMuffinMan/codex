@@ -98,8 +98,9 @@ def lookup_published_lyrics(track: TrackInfo) -> ReferenceLyrics | None:
         return None
 
     def plausible(hit: dict) -> bool:
-        name = (hit.get("trackName") or "").lower()
-        return bool(name) and _norm(track.title) in _norm(name) or _norm(name) in _norm(track.title)
+        name = _norm(hit.get("trackName"))
+        title = _norm(track.title)
+        return bool(name) and (title in name or name in title)
 
     ranked = [h for h in hits if isinstance(h, dict) and plausible(h)]
     if not ranked:

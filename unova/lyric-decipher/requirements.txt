@@ -1,0 +1,9 @@
+# Core: CPU-friendly Whisper inference with word timestamps.
+faster-whisper>=1.0
+
+# Optional, for the highest-quality vocal isolation on dense mixes
+# (pulls PyTorch, ~2 GB — enable only if you want the --demucs variant):
+# demucs>=4.0
+
+# ffmpeg is a system dependency, not a pip package:
+#   macOS: brew install ffmpeg
